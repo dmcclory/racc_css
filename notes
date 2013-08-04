@@ -1,6 +1,12 @@
 - rexical, racc
 ---------------------------------
 css selectors.
+  - 'patterns that match elements in a tree'
+    - Selectors Level 3 spec
+--------------------------------
+  - functions
+    - take a tree element and a selector expression
+    - return true if the element matches selector
 --------------------------------
 
 clicking along, doing TDD, working on descendant selectors ('a b c')
@@ -32,3 +38,85 @@ and what about a selector like this? .a .b .c
 there'd be a lot of conditionals ... ugh
 
 but! parsers!
+--------------------------------------------------
+
+1. lexing - splitting text up into tokens (words)
+2. parsing - grouping tokens into structures (grammar)
+3. doing something with the results (meaning)
+  - compile it to another language
+  - interpret it
+----------------------------------------
+
+Racc and Rex are part of a family of tools:
+
+the  ATT&T originals:
+  Yacc- yet another compiler compiler
+  lex - lexer
+
+begat:
+  Bison - GNU replacement
+  Flex - someother FOSS replacement
+
+AFAIK, flex and bison improved over the originals by letting you write slightly terser rules
+
+Racc and Rex
+
+other languages have tools like this too:
+  - coffeescript's grammar is written in JISON
+----------------------------------------
+
+all of these tools are programs that generate programs
+
+input: DSLs for building lexers & parsers
+output: lexer or parser
+----------------------------------------
+
+class FooLexer
+
+macro
+  surrounder  \(|\)|\{|\}\[|\]
+
+rule
+
+  [A-Z]+       { [:uppercase, text] }
+  [a-z]+       { [:lowercase, text] }
+  [\s]         { [:whitespace, text] }
+  {surrounder} { [:surrounder, text] }
+  [[:punct:]]  { [:punctuation, text] }
+  .            { [:else, text] }
+end
+----------------------------------
+- you can include modules
+- macro section is for defining
+  - access it in the rules section by wrapping it in { }
+- rules regex & block pairs
+  - regex is the pattern that gets matched
+  - block is result that 
+
+- block result should be 2 element arrays
+  - first element is the type
+    - a symbol that will be used the Racc Grammar
+  - second element is the actual text
+  - this is what Racc is expecting
+----------------------------------
+rex foo.rex --stub -o foo.rex.rb
+
+- --stub - adds a tiny program that reads a file and prints the results of tokenizing it
+- -o name of the output file
+
+------------------------------
+input:
+(this) is SOMETHING!
+-----------------------------
+output:
+[:punctuation, "("]
+[:lowercase, "this"]
+[:punctuation, ")"]
+[:whitespace, " "]
+[:lowercase, "is"]
+[:whitespace, " "]
+[:uppercase, "SOMETHING"]
+[:punctuation, "!"]
+[:newline, "\n"]
+
+--------------------------------
