@@ -5,7 +5,8 @@
 #++
 
 require 'racc/parser'
-class CssScanner < Racc::Parser
+module Css
+class Lexer < Racc::Parser
   require 'strscan'
 
   class ScanError < StandardError ; end
@@ -58,13 +59,10 @@ class CssScanner < Racc::Parser
     when nil
       case
       when (text = @ss.scan(/a/))
-        ;
-
-      when (text = @ss.scan(/b/))
-        ;
+         action { [:name, text] }
 
       when (text = @ss.scan(/./))
-        ;
+         action { [:other, text] }
 
       else
         text = @ss.string[@ss.pos .. -1]
@@ -77,12 +75,22 @@ class CssScanner < Racc::Parser
     token
   end  # def _next_token
 
+def tokens str
+  scan_setup str
+  tokens = []
+  while token = next_token
+    tokens << token
+  end 
+  return tokens
 end # class
+
+end
+end
 
 if __FILE__ == $0
   exit  if ARGV.size != 1
   filename = ARGV.shift
-  rex = CssScanner.new
+  rex = Lexer.new
   begin
     rex.load_file  filename
     while  token = rex.next_token
