@@ -35,4 +35,10 @@ class DescendantSelectorTest < MiniTest::Unit::TestCase
     selector = "a b"
     assert Css.select(doc, selector).count == 2
   end
+
+  def test_irrelevant_elements_are_ignored_in_descendant_selector
+    doc = Nokogiri.XML "<a><b><c/></b></a>"
+    selector = "a c"
+    assert Css.select(doc, selector).count == 1
+  end
 end
