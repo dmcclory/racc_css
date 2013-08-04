@@ -118,5 +118,68 @@ output:
 [:uppercase, "SOMETHING"]
 [:punctuation, "!"]
 [:newline, "\n"]
-
 --------------------------------
+
+Racc - 
+
+input files: Backus-Naur form
+
+-------------------------------
+
+class CssParser
+
+rule
+
+parenthetical : '(' words ')'
+
+
+---- inner ----
+
+# you can put extra code that will be included here
+
+end
+-----------------------------
+this is a lot like building sentence structure diagrams
+
+- left hand side of a rule is called a 'non-terminal'
+  - it's not a token
+- right hand side can be a combination of terminals and non-terminals
+
+- each rule has an action
+
+------------------------------
+racc grammar.racc 
+  - generates grammar.tab.rb
+
+---------------------------
+
+class needs to implement next_token
+
+-> somewhere, call do_parse 
+
+-> then the parser will take the tokens, try to build a tree according to the rules
+  -> it will call next_token when it needs to
+--------------------------------
+
+good methods to add in inner section:
+
+def parse tokens
+  @tokens = tokens
+  do_parse
+end
+
+def next_token
+  @tokens.shift
+end
+
+----------------------------------
+then, in your code:
+token = CssLexer.new.scan_file(thing)
+CssParser.new.parse(tokens)
+------------------------------------
+------------------------------------
+
+how do you get from this parse tree to a boolean function?
+
+an exercise for the reader :)
+  (checkout sexp_processor gem)
