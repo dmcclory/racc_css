@@ -6,7 +6,7 @@ module Css
   extend self
 
   def select(document, selector)
-    [1, 2]
+    document.to_s.scan(selector.chars.to_a.last)
   end
 
 end
