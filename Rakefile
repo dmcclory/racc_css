@@ -10,3 +10,11 @@ file 'lib/css.racc' do |f|
 end
 
 task :default => ['lib/css.racc', 'lib/css.rex']
+
+require 'rake/testtask'
+
+Rake::TestTask.new do |t|
+  t.libs << "lib"
+  t.test_files = FileList["test/test*.rb"]
+  t.verbose = true
+end
