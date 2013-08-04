@@ -5,6 +5,13 @@ module Css
 
   extend self
 
+  def select(document, selector)
+    selector_func = parse_and_interpret(selector)
+    traverse_select(document) { |e| 
+      selector_func.call(e)
+    }
+  end
+
   def parse_and_interpret(selector)
     names = selector.split(" ").reverse
     lambda { |e| 
@@ -20,13 +27,5 @@ module Css
     }
     return array
   end
-
-  def select(document, selector)
-    selector_func = parse_and_interpret(selector)
-    traverse_select(document) { |e| 
-      selector_func.call(e)
-    }
-  end
-
 end
 
