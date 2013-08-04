@@ -119,6 +119,21 @@ output:
 [:punctuation, "!"]
 [:newline, "\n"]
 --------------------------------
+you can also add methods that will be defined on the output class
+
+inner
+def tokens str
+  scan_setup str
+  tokens = []
+  while token = next_token
+    tokens << token
+  end
+  return tokens
+end
+
+(add this method! the API is a mess. #scan is broken)
+
+--------------------------------
 
 Racc - 
 
@@ -174,7 +189,7 @@ end
 
 ----------------------------------
 then, in your code:
-token = CssLexer.new.scan_file(thing)
+token = CssLexer.new.tokens("string")
 CssParser.new.parse(tokens)
 ------------------------------------
 ------------------------------------
