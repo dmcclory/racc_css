@@ -17,4 +17,16 @@ class DescendantSelectorTest < MiniTest::Unit::TestCase
     selector = "a b"
     assert Css.select(doc, selector).count == 3
   end
+
+  def test_can_select_different_numbers_of_C_descendants_of_A
+    doc = Nokogiri.XML "<a><c/><c/><c/></a>"
+    selector = "a c"
+    assert Css.select(doc, selector).count == 3
+  end
+
+  def test_can_select_names_as_descendants
+    doc = Nokogiri.XML "<a><cat/><cat/><cat/></a>"
+    selector = "a cat"
+    assert Css.select(doc, selector).count == 3
+  end
 end
