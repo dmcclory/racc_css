@@ -29,4 +29,10 @@ class DescendantSelectorTest < MiniTest::Unit::TestCase
     selector = "a cat"
     assert Css.select(doc, selector).count == 3
   end
+
+  def test_can_actually_select_descendants
+    doc = Nokogiri.XML "<root><a><b/><b/></a><b/></root>"
+    selector = "a b"
+    assert Css.select(doc, selector).count == 2
+  end
 end

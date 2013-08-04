@@ -6,7 +6,11 @@ module Css
   extend self
 
   def parse_and_interpret(selector)
-    lambda { |e| e.name == selector.split(" ").last }
+    names = selector.split(" ").reverse
+    lambda { |e| 
+      ancestor_names = e.ancestors.map {|a| a.name }.push e.name
+      names.all? { |n| ancestor_names.include? n }
+    }
   end
 
   def traverse_select(document, &block)
