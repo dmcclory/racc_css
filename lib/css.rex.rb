@@ -59,7 +59,10 @@ class Lexer < Racc::Parser
     when nil
       case
       when (text = @ss.scan(/[_a-z0-9-]+/))
-         action { [:name, text] }
+         action { [ :name, text] }
+
+      when (text = @ss.scan(/[ \t\r\n\f]+/))
+         action { [ :S, text] }
 
       when (text = @ss.scan(/./))
          action { [:other, text] }

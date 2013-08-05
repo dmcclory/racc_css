@@ -17,5 +17,10 @@ class CssLexerTest < MiniTest::Unit::TestCase
     assert_tokenizes_to "wist-ful", [[:name, "wist-ful"]]
   end
 
+  def test_space_characters
+    assert_tokenizes_to " ", [[:S, " "]]
+    assert_tokenizes_to "\n  ", [[:S, "\n  "]]
+  end
+
 
 end

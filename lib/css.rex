@@ -4,10 +4,12 @@ class Lexer
 macro
 
 nmchar [_a-z0-9-]
+w [\ \t\r\n\f]
 
 rule
 
- {nmchar}+  { [:name, text] }
+ {nmchar}+  { [ :name, text] }
+ {w}+ { [ :S, text] } 
  .  { [:other, text] }
 
 inner
