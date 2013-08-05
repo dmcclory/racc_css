@@ -10,12 +10,29 @@ class CssParserTests < MiniTest::Unit::TestCase
     assert_equal expect_tree, result_tree
   end
   
-  def test_element_gets
+  def test_element_gets_parse_tree
     assert_parses_to [[:name,"a"]],
       [:selectors_group,
         [:selector,
           [:simple_selector_sequence,
             [:element_name, "a" ]
       ] ] ]
+  end
+
+  def test_descandant_elements_use_combinator
+    assert_parses_to [[:name, 'a'], [:S, ' '], [:name, 'b']],
+      [:selectors_group,
+        [:selector,
+          [:simple_selector_sequence,
+            [:element_name, "a" ]
+          ],
+          [:combinator, " "],
+          [:selector,
+            [:simple_selector_sequence,
+              [:element_name, "b"]
+            ]
+          ]
+        ]
+      ]
   end
 end

@@ -11,13 +11,16 @@ selectors_group
 
 selector
   : simple_selector_sequence { result = [:selector, *val] }
-  | simple_selector_seqeunce combinator selector {result =  [:selector, *val] }
+  | simple_selector_sequence combinator selector {result =  [:selector, *val] }
 
 simple_selector_sequence
   : element_name { result = [:simple_selector_sequence, *val] }
 
 element_name
   : name  { result = [:element_name, *val] }
+
+combinator
+  : S  { result = [:combinator, *val] }
 
 end
 ---- inner ----
