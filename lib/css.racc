@@ -1,0 +1,33 @@
+class Css::Parser
+
+rule
+
+start selectors_group
+
+selectors_group
+  : selector  { result = [:selectors_group, *val] }
+  | selector COMMA S selectors_group { result = [:selectors_group, *val] }
+  | selector COMMA selectors_group { result = [:selectors_group, *val] }
+
+selector
+  : simple_selector_sequence { result = [:selector, *val] }
+  | simple_selector_seqeunce combinator selector {result =  [:selector, *val] }
+
+simple_selector_sequence
+  : element_name { result = [:simple_selector_sequence, *val] }
+
+element_name
+  : name  { result = [:element_name, *val] }
+
+end
+---- inner ----
+
+def parse tokens
+  @tokens = tokens
+  do_parse
+end
+
+def next_token
+  @tokens.shift
+end
+

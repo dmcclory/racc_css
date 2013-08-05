@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'css.rex.rb'
+require 'css.tab.rb'
 
 module Css
 
