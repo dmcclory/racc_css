@@ -9,7 +9,7 @@ task 'lib/css.racc' do |f|
   sh "racc #{f}"
 end
 
-task :default => ['lib/css.racc', 'lib/css.rex']
+task :build => ['lib/css.racc', 'lib/css.rex']
 
 require 'rake/testtask'
 
@@ -18,3 +18,5 @@ Rake::TestTask.new do |t|
   t.test_files = FileList["test/test*.rb"]
   t.verbose = true
 end
+
+task :default => [:build, :test]
