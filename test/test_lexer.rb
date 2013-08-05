@@ -22,5 +22,9 @@ class CssLexerTest < MiniTest::Unit::TestCase
     assert_tokenizes_to "\n  ", [[:S, "\n  "]]
   end
 
+  def test_combinations
+    assert_tokenizes_to "a b", [[:name, "a"], [:S, " "], [:name, "b"]]
+  end
+
 
 end
