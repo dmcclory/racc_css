@@ -11,8 +11,11 @@ class CssLexerTest < MiniTest::Unit::TestCase
     assert_equal expect, result, "expected selector #{selector} to tokenize to #{expect.inspect}, but was #{result.inspect}"
   end
 
-  def test_names_get_name
+  def test_nmchar_sequences_get_name_category
     assert_tokenizes_to "a", [[:name, "a"]]
+    assert_tokenizes_to "abe", [[:name, "abe"]]
+    assert_tokenizes_to "wist-ful", [[:name, "wist-ful"]]
   end
+
 
 end

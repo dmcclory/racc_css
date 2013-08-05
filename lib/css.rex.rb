@@ -58,7 +58,7 @@ class Lexer < Racc::Parser
     token = case @state
     when nil
       case
-      when (text = @ss.scan(/a/))
+      when (text = @ss.scan(/[_a-z0-9-]+/))
          action { [:name, text] }
 
       when (text = @ss.scan(/./))

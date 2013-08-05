@@ -1,9 +1,13 @@
 module Css
 class Lexer
 
+macro
+
+nmchar [_a-z0-9-]
+
 rule
 
- a  { [:name, text] }
+ {nmchar}+  { [:name, text] }
  .  { [:other, text] }
 
 inner
