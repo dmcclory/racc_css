@@ -5,7 +5,7 @@ task 'lib/css.rex' do |f|
   sh "rex --stub #{f}"
 end
 
-file 'lib/css.racc' do |f|
+task 'lib/css.racc' do |f|
   sh "racc #{f}"
 end
 
