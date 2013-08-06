@@ -37,10 +37,25 @@ class DescendantSelectorTest < MiniTest::Unit::TestCase
     assert Css.select(doc, selector).count == 2
   end
 
+  def test_can_chain_descendant_seletors
+    doc = Nokogiri.XML "<root><a><b><c/></b><d><c/></d></a></root>"
+    selector = "a b c"
+    result = Css.select(doc, selector)
+    assert_equal result.count, 1
+  end
+
+  def test_descendant_selectors_can_be_nested_arbitrarily_deeply
+    doc = Nokogiri.XML "<root><a><b><c><d><e><f/></e></d></c></b></a></root>"
+    selector = "a b c d e f"
+    result = Css.select(doc, selector)
+    assert_equal result.count, 1
+  end
+
   def test_irrelevant_elements_are_ignored_in_descendant_selector
     doc = Nokogiri.XML "<a><b><c/></b></a>"
     selector = "a c"
     result = Css.select(doc, selector)
     assert_equal 1, result.count, "Expected 1 element, but got #{result.count}"
   end
+
 end

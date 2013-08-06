@@ -19,10 +19,20 @@ module Css
 
     def process_selector s
       _, *simple_selectors = *s
-      loo = simple_selectors.map { |g|
+      procs = simple_selectors.map { |g|
         process g
       }
-      lambda { |e| e.ancestors.any? {|a| loo.first.call(a) } and loo.last.call(e) }
+      current_element_matches = procs.last
+      other_selectors = procs.select {|i| i.is_a? Proc }
+      other_selectors.reverse!.shift
+      all_other_selectors_match = lambda { |e|
+        other_selectors.inject(e) { |element, selector_pred|
+          foo = element.ancestors.select { |f| selector_pred.call(f) }.first
+          return false if foo.nil?
+          foo
+        }
+      }
+      lambda { |e| all_other_selectors_match.call(e) and current_element_matches.call(e) }
     end
 
     def process_simple_selector_sequence s
