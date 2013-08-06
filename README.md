@@ -3,16 +3,36 @@ this is a demo that shows how to use Racc and Rex. You can think of it as a toy 
 
 it implements:
 
-- element selector
-  - 'a' -> selects all 'a' elements
-- '#' id selector  
-  - 'a#foo' -> selects all a elements with id = 'foo'
-- '.' class selector
-  - 'a.bar' -> selects all a elements with class = 'bar'
-- attribute selector
-  - 'a[baz = 'superrad'] -> selects all a elements with baz set to 'superrad'
-- descendant combinator
-  - a b -> selects all b elements that have an 'a' ancestor
+```
+# element selector
+Css.select doc, 'a' 
+=> selects all 'a' elements
 
-it also implements selector grouping:
-  a, b c, d#e -> returns all 'a' elements, 'c' elements with 'b' ancestors, and 'd' elements with id = 'e' 
+# '#' id selector  
+Css.select doc, 'a#foo'
+=> selects all a elements with id = 'foo'
+
+#'.' class selector
+Css.select doc, 'a.bar' 
+=> selects all a elements with class = 'bar'
+
+#attribute selector
+Css.select doc, 'a[baz = 'superrad']
+=> selects all a elements with baz set to 'superrad'
+
+# descendant combinator
+Css.select doc, 'a b'
+=> selects all b elements that have an 'a' ancestor
+
+#selector grouping:
+Css.select doc, 'a, b c, d#e'
+=> returns all 'a' elements, 'c' elements with 'b' ancestors, and 'd' elements with id = 'e' 
+```
+
+# Hacking
+
+```
+rake build - rebuild the grammar and lexer
+rake test - runs the tests
+rake - rebuilds the grammar and lexer and runs the test
+```
