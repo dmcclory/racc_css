@@ -8,7 +8,7 @@ require 'racc/parser.rb'
 module Css
   class Parser < Racc::Parser
 
-module_eval(<<'...end css.racc/module_eval...', 'css.racc', 27)
+module_eval(<<'...end css.racc/module_eval...', 'css.racc', 31)
 
 def parse tokens
   @tokens = tokens
@@ -22,32 +22,34 @@ end
 ##### State transition tables begin ###
 
 racc_action_table = [
-    12,     6,    11,     8,    10,     7,     6,     6,     6 ]
+    13,     6,     6,     8,    11,    12,     7,    11,     6,     6,
+     6 ]
 
 racc_action_check = [
-     8,     8,     7,     3,     4,     1,     0,     9,    12 ]
+     8,     8,     0,     3,     4,     7,     1,     9,    10,    13,
+    15 ]
 
 racc_action_pointer = [
-     2,     5,   nil,     1,     1,   nil,   nil,     2,    -3,     3,
-   nil,   nil,     4,   nil,   nil,   nil ]
+    -2,     6,   nil,     1,     1,   nil,   nil,     5,    -3,     4,
+     4,   nil,   nil,     5,   nil,     6,   nil,   nil,   nil ]
 
 racc_action_default = [
-   -10,   -10,    -1,    -2,    -5,    -7,    -8,   -10,   -10,   -10,
-    -9,    16,   -10,    -4,    -6,    -3 ]
+   -12,   -12,    -1,    -2,    -5,    -9,   -10,   -12,   -12,    -6,
+   -12,   -11,    19,   -12,    -4,   -12,    -7,    -3,    -8 ]
 
 racc_goto_table = [
-     2,    14,     1,     9,   nil,   nil,   nil,   nil,    13,   nil,
-   nil,   nil,    15 ]
+     2,    10,    16,     9,     1,   nil,    15,    18,    14,   nil,
+   nil,   nil,   nil,    17 ]
 
 racc_goto_check = [
-     2,     4,     1,     5,   nil,   nil,   nil,   nil,     2,   nil,
-   nil,   nil,     2 ]
+     2,     6,     4,     5,     1,   nil,     6,     4,     2,   nil,
+   nil,   nil,   nil,     2 ]
 
 racc_goto_pointer = [
-   nil,     2,     0,   nil,    -8,    -1,   nil ]
+   nil,     4,     0,   nil,    -8,    -1,    -3,   nil ]
 
 racc_goto_default = [
-   nil,   nil,   nil,     3,     4,   nil,     5 ]
+   nil,   nil,   nil,     3,     4,   nil,   nil,     5 ]
 
 racc_reduce_table = [
   0, 0, :racc_error,
@@ -56,14 +58,16 @@ racc_reduce_table = [
   4, 7, :_reduce_3,
   3, 7, :_reduce_4,
   1, 8, :_reduce_5,
-  3, 8, :_reduce_6,
-  1, 9, :_reduce_7,
-  1, 11, :_reduce_8,
-  1, 10, :_reduce_9 ]
+  2, 8, :_reduce_6,
+  2, 10, :_reduce_7,
+  3, 10, :_reduce_8,
+  1, 9, :_reduce_9,
+  1, 12, :_reduce_10,
+  1, 11, :_reduce_11 ]
 
-racc_reduce_n = 10
+racc_reduce_n = 12
 
-racc_shift_n = 16
+racc_shift_n = 19
 
 racc_token_table = {
   false => 0,
@@ -103,6 +107,7 @@ Racc_token_to_s_table = [
   "selectors_group",
   "selector",
   "simple_selector_sequence",
+  "annoying_bit",
   "combinator",
   "element_name" ]
 
@@ -144,27 +149,41 @@ module_eval(<<'.,.,', 'css.racc', 12)
 
 module_eval(<<'.,.,', 'css.racc', 13)
   def _reduce_6(val, _values, result)
-    result =  [:selector, *val] 
+    first, *rest = *val; rest.flatten!(1); result =  [:selector, first, *rest] 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'css.racc', 16)
   def _reduce_7(val, _values, result)
+     result = val 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'css.racc', 17)
+  def _reduce_8(val, _values, result)
+     previous_combinators = val.shift; result = previous_combinators + val 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'css.racc', 20)
+  def _reduce_9(val, _values, result)
      result = [:simple_selector_sequence, *val] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'css.racc', 19)
-  def _reduce_8(val, _values, result)
+module_eval(<<'.,.,', 'css.racc', 23)
+  def _reduce_10(val, _values, result)
      result = [:element_name, *val] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'css.racc', 22)
-  def _reduce_9(val, _values, result)
+module_eval(<<'.,.,', 'css.racc', 26)
+  def _reduce_11(val, _values, result)
      result = [:combinator, *val] 
     result
   end

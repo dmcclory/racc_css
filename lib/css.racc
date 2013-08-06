@@ -11,7 +11,11 @@ selectors_group
 
 selector
   : simple_selector_sequence { result = [:selector, *val] }
-  | simple_selector_sequence combinator simple_selector_sequence {result =  [:selector, *val] }
+  | simple_selector_sequence annoying_bit {first, *rest = *val; rest.flatten!(1); result =  [:selector, first, *rest] }
+
+annoying_bit
+  : combinator simple_selector_sequence { result = val }
+  | annoying_bit combinator simple_selector_sequence { previous_combinators = val.shift; result = previous_combinators + val }
 
 simple_selector_sequence
   : element_name { result = [:simple_selector_sequence, *val] }
