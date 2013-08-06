@@ -9,7 +9,8 @@ class DescendantSelectorTest < MiniTest::Unit::TestCase
   def test_can_select_B_descendants_of_A
     doc = Nokogiri.XML "<a><b/><b/></a>"
     selector = "a b"
-    assert Css.select(doc, selector).count == 2
+    result = Css.select(doc, selector)
+    assert_equal 2, result.count, "Expected 2, but there were #{result.count}"
   end
 
   def test_can_select_different_numbers_of_B_descendants_of_A
@@ -39,6 +40,7 @@ class DescendantSelectorTest < MiniTest::Unit::TestCase
   def test_irrelevant_elements_are_ignored_in_descendant_selector
     doc = Nokogiri.XML "<a><b><c/></b></a>"
     selector = "a c"
-    assert Css.select(doc, selector).count == 1
+    result = Css.select(doc, selector)
+    assert_equal 1, result.count, "Expected 1 element, but got #{result.count}"
   end
 end
