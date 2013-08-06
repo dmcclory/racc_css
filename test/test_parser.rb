@@ -27,10 +27,8 @@ class CssParserTests < MiniTest::Unit::TestCase
             [:element_name, "a" ]
           ],
           [:combinator, " "],
-          [:selector,
-            [:simple_selector_sequence,
-              [:element_name, "b"]
-            ]
+          [:simple_selector_sequence,
+            [:element_name, "b"]
           ]
         ]
       ]

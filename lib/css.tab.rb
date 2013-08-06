@@ -40,11 +40,11 @@ racc_goto_table = [
    nil,   nil,    15 ]
 
 racc_goto_check = [
-     2,     3,     1,     5,   nil,   nil,   nil,   nil,     2,   nil,
+     2,     4,     1,     5,   nil,   nil,   nil,   nil,     2,   nil,
    nil,   nil,     2 ]
 
 racc_goto_pointer = [
-   nil,     2,     0,    -8,   nil,    -1,   nil ]
+   nil,     2,     0,   nil,    -8,    -1,   nil ]
 
 racc_goto_default = [
    nil,   nil,   nil,     3,     4,   nil,     5 ]
