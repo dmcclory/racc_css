@@ -20,6 +20,7 @@ annoying_bit
 simple_selector_sequence
   : element_name { result = [:simple_selector_sequence, *val] }
   | element_name modifier { first, *rest = *val; rest.flatten(1); result = [:simple_selector_sequence, first, *rest ]  }
+  | modifier { first, *rest = *val; rest.flatten(1); result = [:simple_selector_sequence, first, *rest ]  }
 
 element_name
   : name  { result = [:element_name, *val] }
