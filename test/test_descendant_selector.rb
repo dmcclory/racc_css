@@ -49,6 +49,7 @@ class DescendantSelectorTest < MiniTest::Unit::TestCase
     selector = "a b c d e f"
     result = Css.select(doc, selector)
     assert_equal 1, result.count
+    assert_equal "f", result.first.name
   end
 
   def test_irrelevant_elements_are_ignored_in_descendant_selector
