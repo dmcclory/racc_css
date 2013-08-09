@@ -26,5 +26,8 @@ class CssLexerTest < MiniTest::Unit::TestCase
     assert_tokenizes_to "a b", [[:name, "a"], [:S, " "], [:name, "b"]]
   end
 
+  def test_class_symbol_tokenizes
+    assert_tokenizes_to '.', [['.', '.']]
+  end
 
 end

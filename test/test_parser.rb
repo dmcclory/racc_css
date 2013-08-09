@@ -44,4 +44,14 @@ class CssParserTests < MiniTest::Unit::TestCase
             [:combinator, " "],
             [:simple_selector_sequence, [:element_name, "c"]]]]
   end
+
+  def test_class_selectors_can_appear_as
+    assert_parses_to [[:name, 'a'], ['.', '.'], [:name, 'b']],
+      [:selectors_group,
+        [:selector,
+          [:simple_selector_sequence, 
+            [:element_name, 'a'],
+            [:class, [:name, 'b'] 
+      ] ] ] ]
+  end
 end

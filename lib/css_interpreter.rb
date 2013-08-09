@@ -36,8 +36,11 @@ module Css
     end
 
     def process_simple_selector_sequence s
-      _, namestuff = *s
-      process namestuff
+      _, *namestuff = *s
+      lambdas = namestuff.map do |segment|
+        process segment
+      end
+      lambda { |e| lambdas.all? { |l| l.call e } }
     end
 
     def process_combinator s
@@ -48,6 +51,11 @@ module Css
     def process_element_name s
       _, name = *s
       lambda { |e| e.name == name }
+    end
+
+    def process_class s
+      name = s.last.last
+      lambda { |e| e['class'] == name }
     end
   end
 end
