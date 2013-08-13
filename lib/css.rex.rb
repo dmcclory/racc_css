@@ -67,6 +67,9 @@ class Lexer < Racc::Parser
       when (text = @ss.scan(/\./))
          action { [text, text] }
 
+      when (text = @ss.scan(/\#/))
+         action { [text, text] }
+
       when (text = @ss.scan(/./))
          action { [:other, text] }
 

@@ -11,6 +11,7 @@ rule
  {nmchar}+  { [ :name, text] }
  {w}+ { [ :S, text] } 
  \.   { [text, text] }
+ \#   { [text, text] }
  .  { [:other, text] }
 
 inner

@@ -54,4 +54,14 @@ class CssParserTests < MiniTest::Unit::TestCase
             [:class, [:name, 'b'] 
       ] ] ] ]
   end
+
+  def test_id_syntax_parsing
+    assert_parses_to [[:name, 'a'], ['#', '#'], [:name, 'so_cool']],
+      [:selectors_group,
+        [:selector,
+          [:simple_selector_sequence,
+            [:element_name, 'a'],
+            [:id, [:name, 'so_cool'] ] 
+      ] ] ] 
+  end
 end

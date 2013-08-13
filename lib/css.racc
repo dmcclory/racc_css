@@ -27,9 +27,13 @@ element_name
 
 modifier
   : class { result = [:class, val.flatten(1)] }
+  | id    { result = [:id, val.flatten(1) ] }
 
 class
   : '.' name {result = [:name, val.last] }
+
+id
+  : '#' name {result = [:name, val.last] }
 
 combinator
   : S  { result = [:combinator, *val] }

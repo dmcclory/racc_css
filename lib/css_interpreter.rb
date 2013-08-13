@@ -57,5 +57,10 @@ module Css
       name = s.last.last
       lambda { |e| e['class'] == name }
     end
+
+    def process_id s
+      name = s.last.last
+      lambda { |e| e['id'] == name }
+    end
   end
 end
